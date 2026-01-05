@@ -1,35 +1,37 @@
 // BaseNode.js
 import { Handle } from "reactflow";
+import { useStore } from "../store";
 
-export const BaseNode = ({ id, label, children, handles = [], style = {}, isConnectable = true }) => {
+export const BaseNode = ({
+  id,
+  label,
+  children,
+  handles = [],
+  style = {},
+  isConnectable = true,
+  className = "",
+}) => {
+  const removeNode = useStore((state) => state.removeNode);
+
   return (
     <div
-      style={{
-        width: 200,
-        height: 'auto',
-        minHeight: 100,
-        border: "1px solid var(--border-color)",
-        borderRadius: "8px",
-        backgroundColor: "var(--bg-secondary)",
-        color: "var(--text-primary)",
-        boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-        display: "flex",
-        flexDirection: "column",
-        position: "relative",
-        boxSizing: "border-box",
-        ...style
-      }}
+      className={`base-node ${className}`}
+      style={style}
     >
+      {/* Node Header */}
+      <div className="base-node-header">
+        <span>{label}</span>
+        <button 
+          className="node-delete-button" 
+          onClick={() => removeNode(id)}
+          aria-label="Delete node"
+        >
+          ×
+        </button>
+      </div>
+
       {/* Node Content */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "12px",
-          padding: "16px",
-          flexGrow: 1
-        }}
-      >
+      <div className="base-node-content">
         {children}
       </div>
 
@@ -41,9 +43,8 @@ export const BaseNode = ({ id, label, children, handles = [], style = {}, isConn
           position={handle.position}
           id={handle.id}
           isConnectable={isConnectable}
-          style={{
-            ...handle.style
-          }}
+          className={handle.className}
+          style={handle.style}
         />
       ))}
     </div>
