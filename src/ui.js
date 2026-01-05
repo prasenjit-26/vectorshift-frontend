@@ -10,6 +10,11 @@ import { InputNode } from './nodes/inputNode';
 import { LLMNode } from './nodes/llmNode';
 import { OutputNode } from './nodes/outputNode';
 import { TextNode } from './nodes/textNode';
+import { PipelineNode } from './nodes/pipelineNode';
+import { ConditionalNode } from './nodes/conditionalNode';
+import { APIRequestNode } from './nodes/apiRequestNode';
+import { DatabaseNode } from './nodes/databaseNode';
+import { TransformationNode } from './nodes/transformationNode';
 
 import 'reactflow/dist/style.css';
 
@@ -20,6 +25,11 @@ const nodeTypes = {
   llm: LLMNode,
   customOutput: OutputNode,
   text: TextNode,
+  pipeline: PipelineNode,
+  conditional: ConditionalNode,
+  apiRequest: APIRequestNode,
+  database: DatabaseNode,
+  transformation: TransformationNode,
 };
 
 const selector = (state) => ({
@@ -90,7 +100,7 @@ export const PipelineUI = () => {
 
     return (
         <>
-        <div ref={reactFlowWrapper} style={{width: '100wv', height: '70vh'}}>
+        <div ref={reactFlowWrapper} style={{width: '100vw', height: '70vh'}}>
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
@@ -105,7 +115,7 @@ export const PipelineUI = () => {
                 snapGrid={[gridSize, gridSize]}
                 connectionLineType='smoothstep'
             >
-                <Background color="#aaa" gap={gridSize} />
+                <Background color="#5c6b7f" gap={gridSize} />
                 <Controls />
                 <MiniMap />
             </ReactFlow>
